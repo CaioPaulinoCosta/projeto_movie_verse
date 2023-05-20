@@ -8,6 +8,8 @@
 
     $message = new Message($BASE_URL);
 
+    $userDao = new UserDAO($conn, $BASE_URL);
+
     // Pega o tipo do form
     $type = filter_input(INPUT_POST, "type");
 
@@ -22,6 +24,29 @@
 
     // Verifica dados minimos
     if($name && $lastname && $email && $password){
+
+    // Verifica se as senhas são iguais
+
+    if($password === $confirmpassword){
+
+     // Verifica se o email já está cadastrado. 
+     if($userDao->findByEmail($email) === false) {
+
+    echo "Nenhum usuário foi encontado!";
+
+     } else {
+
+    // Envia mensagem de erro (O email já está sendo utilizado)
+     $message->setMessage("O email já está sendo utilizado.", "error", "back");
+
+     }
+
+    } else {
+
+    // Envia mensagem de erro (As senhas não são iguais)
+    $message->setMessage("As senhas não são iguais.", "error", "back");
+
+    }
 
     } else {
 
