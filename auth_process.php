@@ -32,7 +32,22 @@
      // Verifica se o email já está cadastrado. 
      if($userDao->findByEmail($email) === false) {
 
-    echo "Nenhum usuário foi encontado!";
+    $user = new User();
+
+    // Cria token e senha
+
+    $userToken = $user->generateToken();
+    $finalPassword = $user->generatePassword($password);
+
+    $user->name = $name;
+    $user->lastname = $lastname;
+    $user->email = $email;
+    $user->password = $password;
+    $user->token = $token;
+
+    $auth = true;
+
+    $userDao->create($user, $auth);
 
      } else {
 
