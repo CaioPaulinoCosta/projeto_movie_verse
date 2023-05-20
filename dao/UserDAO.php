@@ -25,6 +25,8 @@
             $user->id = $data["bio"];
             $user->id = $data["token"];
 
+            return $user;
+
         }
         public function create(User $user, $authUser = false) {
 
