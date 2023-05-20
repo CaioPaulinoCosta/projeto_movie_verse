@@ -92,7 +92,38 @@
     padding: 40px;
   }
 
+/* Login / Register */
+#auth-row {
+  justify-content: space-evenly;
+}
 
+#login-container h2,
+#register-container h2 {
+  text-align: center;
+  border-bottom: 2px solid #ffc84b;
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+#login-container form,
+#register-container form {
+  max-width: 400px;
+  margin: 30px auto;
+}
+
+.card-btn {
+  color: #000;
+  background-color: #ffc84b;
+  border: 2px solid #ffc84b;
+  width: 100%;
+  transition: .5s;
+}
+
+.card-btn:hover {
+  background-color: #F5C518;
+  border-color: #F5C518;
+}
   
   /* Footer */
 #footer {
