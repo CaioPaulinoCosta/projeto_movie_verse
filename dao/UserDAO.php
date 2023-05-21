@@ -214,6 +214,11 @@
     }
 
     public function destroyToken() {
+    // Remove um token da SESSION
+    $_SESSION["token"] = "";
+
+    // Redirecionar e apresentar a mensagem de sucesso
+    $this->message->setMessage("Você saiu da sua conta!", "success", "index.php");
 
     }
 
