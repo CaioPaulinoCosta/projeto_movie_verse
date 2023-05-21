@@ -8,7 +8,7 @@
         public $image;
         public $trailer;
         public $category;
-        public $length;
+        public $lenght;
         public $users_id;
 
         public function imageGenerateName() {

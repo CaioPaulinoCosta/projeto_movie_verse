@@ -27,7 +27,7 @@ class MovieDAO implements MovieDAOInterface {
         $movie->image = $data["image"];
         $movie->trailer = $data["trailer"];
         $movie->category = $data["category"];
-        $movie->length = $data["length"];
+        $movie->lenght = $data["lenght"];
         $movie->users_id = $data["users_id"];
 
         return $movie;
@@ -58,6 +58,24 @@ class MovieDAO implements MovieDAOInterface {
     }
 
     public function create(Movie $movie) {
+
+        $stmt = $this->conn->prepare("INSERT INTO movies (
+        title, description, image, trailer, category, lenght, users_id
+        ) VALUES (:title, :description, :image, :trailer, :category, :lenght, :users_id
+        )");
+
+        $stmt->bindParam(":title", $movie->title);
+        $stmt->bindParam(":description", $movie->description);
+        $stmt->bindParam(":image", $movie->image);
+        $stmt->bindParam(":trailer", $movie->trailer);
+        $stmt->bindParam(":category", $movie->category);
+        $stmt->bindParam(":lenght", $movie->lenght);
+        $stmt->bindParam(":users_id", $movie->users_id);
+
+        $stmt->execute();
+
+        // Mensagem de sucesso por adicionar um filme/ redireciona para o perfil o home
+        $this->message->setMessage("Filme adicionado com sucesso!", "success", "index.php");
 
     }
 
