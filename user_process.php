@@ -93,5 +93,6 @@ if ($type === "update") {
     }
 } else {
 
-    
+    $message->setMessage("Informações inválidas", "error", "index.php");
+
 }
