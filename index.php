@@ -12,6 +12,12 @@
 
   $comedyMovies = $movieDao->getMoviesByCategory("Comédia");
 
+  $romanceMovies = $movieDao->getMoviesByCategory("Romance");
+
+  $dramaMovies = $movieDao->getMoviesByCategory("Drama");
+
+  $scifiMovies = $movieDao->getMoviesByCategory("Fantasia / Ficção");
+
 ?>
   <div id="main-container" class="container-fluid">
     <h2 class="section-title">Filmes novos</h2>
@@ -42,6 +48,39 @@
       <?php endforeach; ?>
       <?php if(count($comedyMovies) === 0): ?>
         <p class="empty-list">Ainda não há filmes de comédia cadastrados!</p>
+      <?php endif; ?>
+      </div>
+
+      <h2 class="section-title">Romance</h2>
+    <p class="section-description">Veja os melhores filmes de romance</p>
+    <div class="movies-container">
+      <?php foreach($romanceMovies as $movie): ?>
+        <?php require("templates/movie_card.php"); ?>
+      <?php endforeach; ?>
+      <?php if(count($romanceMovies) === 0): ?>
+        <p class="empty-list">Ainda não há filmes de romance cadastrados!</p>
+      <?php endif; ?>
+    </div>
+
+    <h2 class="section-title">Drama</h2>
+    <p class="section-description">Veja os melhores filmes de Drama</p>
+    <div class="movies-container">
+      <?php foreach( $dramaMovies  as $movie): ?>
+        <?php require("templates/movie_card.php"); ?>
+      <?php endforeach; ?>
+      <?php if(count( $dramaMovies ) === 0): ?>
+        <p class="empty-list">Ainda não há filmes de Drama cadastrados!</p>
+      <?php endif; ?>
+    </div>
+
+    <h2 class="section-title">Fantasia-Ficção</h2>
+    <p class="section-description">Veja os melhores filmes Fantasia/Ficção</p>
+    <div class="movies-container">
+      <?php foreach($scifiMovies  as $movie): ?>
+        <?php require("templates/movie_card.php"); ?>
+      <?php endforeach; ?>
+      <?php if(count($scifiMovies) === 0): ?>
+        <p class="empty-list">Ainda não há filmes de Fantasia/Ficção cadastrados!</p>
       <?php endif; ?>
     </div>
   </div>

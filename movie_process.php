@@ -9,7 +9,7 @@ require_once("dao/MovieDAO.php");
 
 $message = new Message($BASE_URL);
 $userDao = new UserDAO($conn, $BASE_URL);
-$movieDAO = new MovieDAO($conn, $BASE_URL);
+$movieDao = new MovieDAO($conn, $BASE_URL);
 
 // Pega o tipo do formulario
 $type = filter_input(INPUT_POST, "type");
@@ -69,7 +69,7 @@ if($type === "create") {
 
     } 
 
-    $movieDAO->create($movie);
+    $movieDao->create($movie);
 
     } else {
 
