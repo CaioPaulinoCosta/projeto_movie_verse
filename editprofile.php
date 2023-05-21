@@ -38,7 +38,7 @@
             </div>
             <input type="submit" class="btn card-btn" value="Alterar">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 profile">
             <div id="profile-image-container" style="background-image: url('<?= $BASE_URL ?>img/users/<?= $userData->image ?>')"></div>
             <div class="form-group">
               <label for="image">Foto:</label>
