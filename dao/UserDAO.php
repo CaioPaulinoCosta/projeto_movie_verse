@@ -56,6 +56,32 @@
     }
 
     public function update(User $user, $redirect = true) {
+      $stmt = $this->conn->prepare("UPDATE users SET
+        name = :name,
+        lastname = :lastname,
+        email = :email,
+        image = :image,
+        bio = :bio,
+        token = :token
+        WHERE id = :id
+      ");
+
+      $stmt->bindParam(":name", $user->name);
+      $stmt->bindParam(":lastname", $user->lastname);
+      $stmt->bindParam(":email", $user->email);
+      $stmt->bindParam(":image", $user->image);
+      $stmt->bindParam(":bio", $user->bio);
+      $stmt->bindParam(":token", $user->token);
+      $stmt->bindParam(":id", $user->id);
+
+      $stmt->execute();
+
+      if($redirect) {
+
+        // Redireciona para o perfil do usuario
+        $this->message->setMessage("Dados atualizados com sucesso!", "success", "editprofile.php");
+
+      }
 
     }
 
@@ -214,15 +240,29 @@
     }
 
     public function destroyToken() {
-    // Remove um token da SESSION
-    $_SESSION["token"] = "";
 
-    // Redirecionar e apresentar a mensagem de sucesso
-    $this->message->setMessage("Você saiu da sua conta!", "success", "index.php");
+      // Remove o token da session
+      $_SESSION["token"] = "";
+
+      // Redirecionar e apresentar a mensagem de sucesso
+      $this->message->setMessage("Você fez o logout com sucesso!", "success", "index.php");
 
     }
 
     public function changePassword(User $user) {
+
+      $stmt = $this->conn->prepare("UPDATE users SET
+        password = :password
+        WHERE id = :id
+      ");
+
+      $stmt->bindParam(":password", $user->password);
+      $stmt->bindParam(":id", $user->id);
+
+      $stmt->execute();
+
+      // Redirecionar e apresentar a mensagem de sucesso
+      $this->message->setMessage("Senha alterada com sucesso!", "success", "editprofile.php");
 
     }
 

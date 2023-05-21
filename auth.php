@@ -8,7 +8,7 @@ include_once("templates/header.php");
   <div class="row" id="auth-row">
     <div class="col-md-4" id="login-container">
       <h2>Entrar</h2>
-      <form action="" method="POST">
+      <form action="<?= $BASE_URL ?>auth_process.php" method="POST">
       <input type="hidden" name="type" value="login">
         <div class="form-group">
           <label for="email">Email:</label>
@@ -16,7 +16,7 @@ include_once("templates/header.php");
         </div>
         <div class="form-group">
           <label for="password">Senha:</label>
-          <input type="text" class="form-control" name="password" id="password"placeholder="Digite sua senha..."> 
+          <input type="password" class="form-control" name="password" id="password"placeholder="Digite sua senha..."> 
         </div>
         <input type="submit" class="btn card-btn" value="Entrar">
       </form>
