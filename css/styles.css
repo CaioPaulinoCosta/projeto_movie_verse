@@ -112,7 +112,7 @@
   
   .movie-card {
     background-color: #1A1A1A;
-    width: 18%;
+    width: 14%;
     margin-bottom: 30px;
     margin-left: 1%;
     margin-right: 1%;
@@ -391,9 +391,8 @@
 
 .edit-btn,
 .delete-btn {
-  padding: 5px 10px;
+  padding: 5px 25px;
   border-radius: 5px;
-  margin: 0 5px;
   font-weight: bold;
   transition: .5s;
   border: none;
