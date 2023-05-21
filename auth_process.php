@@ -1,78 +1,92 @@
 <?php
 
-    require_once("globals.php");
-    require_once("db.php");
-    require_once("models/User.php");
-    require_once("models/Message.php");
-    require_once("dao/UserDAO.php");
+  require_once("globals.php");
+  require_once("db.php");
+  require_once("models/User.php");
+  require_once("models/Message.php");
+  require_once("dao/UserDAO.php");
 
-    $message = new Message($BASE_URL);
+  $message = new Message($BASE_URL);
 
-    $userDao = new UserDAO($conn, $BASE_URL);
+  $userDao = new UserDAO($conn, $BASE_URL);
 
-    // Pega o tipo do form
-    $type = filter_input(INPUT_POST, "type");
+  // Resgata o tipo do formulário
+  $type = filter_input(INPUT_POST, "type");
 
-    // Verifica tipo do formulario
-    if($type === "register") {
-       
+  // Verificação do tipo de formulário
+  if($type === "register") {
+
     $name = filter_input(INPUT_POST, "name");
     $lastname = filter_input(INPUT_POST, "lastname");
     $email = filter_input(INPUT_POST, "email");
     $password = filter_input(INPUT_POST, "password");
     $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
 
-    // Verifica dados minimos
-    if($name && $lastname && $email && $password){
+    // Verificação de dados mínimos 
+    if($name && $lastname && $email && $password) {
 
-    // Verifica se as senhas são iguais
+      // Verificar se as senhas batem
+      if($password === $confirmpassword) {
 
-    if($password === $confirmpassword){
+        // Verificar se o e-mail já está cadastrado no sistema
+        if($userDao->findByEmail($email) === false) {
 
-     // Verifica se o email já está cadastrado. 
-     if($userDao->findByEmail($email) === false) {
+          $user = new User();
 
-    $user = new User();
+          // Criação de token e senha
+          $userToken = $user->generateToken();
+          $finalPassword = $user->generatePassword($password);
 
-    // Cria token e senha
+          $user->name = $name;
+          $user->lastname = $lastname;
+          $user->email = $email;
+          $user->password = $finalPassword;
+          $user->token = $userToken;
 
-    $userToken = $user->generateToken();
-    $finalPassword = $user->generatePassword($password);
+          $auth = true;
 
-    $user->name = $name;
-    $user->lastname = $lastname;
-    $user->email = $email;
-    $user->password = $password;
-    $user->token = $token;
+          $userDao->create($user, $auth);
 
-    $auth = true;
+        } else {
+          
+          // Enviar uma msg de erro, usuário já existe
+          $message->setMessage("Usuário já cadastrado, tente outro e-mail.", "error", "back");
 
-    $userDao->create($user, $auth);
+        }
 
-     } else {
+      } else {
 
-    // Envia mensagem de erro (O email já está sendo utilizado)
-     $message->setMessage("O email já está sendo utilizado.", "error", "back");
+        // Enviar uma msg de erro, de senhas não batem
+        $message->setMessage("As senhas não são iguais.", "error", "back");
 
-     }
-
-    } else {
-
-    // Envia mensagem de erro (As senhas não são iguais)
-    $message->setMessage("As senhas não são iguais.", "error", "back");
-
-    }
+      }
 
     } else {
 
-    // Envia mensagem de erro (Falta de dados)
-    $message->setMessage("Por favor, preencha todos os campos.", "error", "back");
-    }
-
-    
-
-    } else if ($type === ["login"]) {
-
-
+      // Enviar uma msg de erro, de dados faltantes
+      $message->setMessage("Por favor, preencha todos os campos.", "error", "back");
 
     }
+
+  } else if($type === "login") {
+
+    $email = filter_input(INPUT_POST, "email");
+    $password = filter_input(INPUT_POST, "password");
+
+    // Tenta autenticar usuário
+    if($userDao->authenticateUser($email, $password)) {
+
+      $message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
+
+    // Redireciona o usuário, caso não conseguir autenticar
+    } else {
+
+      $message->setMessage("Usuário e/ou senha incorretos.", "error", "back");
+
+    }
+
+  } else {
+
+    $message->setMessage("Informações inválidas!", "error", "index.php");
+
+  }
