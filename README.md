@@ -1,4 +1,4 @@
-## Um projeto avançado utilizando um banco de dados relacional para armazenar dados de usuários e postagens desses usuários foi desenvolvido em: HTML, CSS, Bootstrap, PHP e MySQL.
+## Um projeto avançado utilizando um banco de dados relacional para armazenar dados de usuários e postagens desses usuários, desenvolvido em: HTML, CSS, Bootstrap, PHP e MySQL.
 
 Este é o README do projeto MovieStar, um projeto avançado sobre uma página WEB de crítica de filmes. Acessando a página, o usuário entra como um usuário não cadastrado, sendo incapacitado de acessar as funcionalidades do site, permitido apenas a vizualizar os conteudos ja presentes.
 Ao se registrar e logado no site, o usuário tem a possibilidade de por meio de um formulário adiciona críticas sobre filmes, onde neste formulário ele é capaz de: Coletar o título do filme, descrição, tempo de duração, categoria, adicionar a um trailer e ao final uma descrição sobre o filme em questão. 
