@@ -25,7 +25,7 @@ Open the project folder in your browser.
 
 
 ## Visualização do projeto
-
+![printHomeMovieVerse](https://github.com/CaioPaulinoCosta/projetoMovieVerse/assets/130261742/b6063fe6-ab26-4141-b69d-50800db2ca53)
 ---
 
 ##### Make with 🧠
